@@ -1,4 +1,3 @@
-# analyzer.py
 
 import asyncio
 import socket
