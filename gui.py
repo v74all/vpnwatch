@@ -1,4 +1,3 @@
-# gui.py
 
 import asyncio
 import json
@@ -247,7 +246,7 @@ class ApiSettingsDialog(QDialog):
             show_btn = QPushButton("👁")
             show_btn.setFixedWidth(30)
             show_btn.setToolTip("Show/Hide API Key")
-            # Using functools.partial to avoid late binding
+     
             show_btn.clicked.connect(functools.partial(self.toggle_password_visibility, key_input))
 
             key_layout.addWidget(key_label)
@@ -326,7 +325,7 @@ class ScanOptionsDialog(QDialog):
 
         layout = QVBoxLayout(self)
 
-        # IP Input
+
         ip_layout = QHBoxLayout()
         ip_label = QLabel("IP Address:")
         self.ip_input = QLineEdit()
@@ -334,12 +333,12 @@ class ScanOptionsDialog(QDialog):
         ip_layout.addWidget(self.ip_input)
         layout.addLayout(ip_layout)
 
-        # Scan Options Group
+
         options_group = QGroupBox("Scan Options")
         options_layout = QVBoxLayout()
         self.checkboxes = {}
 
-        # Define scan-specific options
+
         scan_options = {
             "port": {
                 "common_ports": "Scan Common Ports",
@@ -370,14 +369,14 @@ class ScanOptionsDialog(QDialog):
 
         for key, text in options.items():
             cb = QCheckBox(text)
-            cb.setChecked(True)  # Default to selected
+            cb.setChecked(True)  
             self.checkboxes[key] = cb
             options_layout.addWidget(cb)
 
         options_group.setLayout(options_layout)
         layout.addWidget(options_group)
 
-        # Custom Port Range Input (only for port scan)
+
         if scan_type == "port":
             self.port_range_group = QGroupBox("Custom Port Range")
             port_range_layout = QHBoxLayout()
@@ -395,10 +394,10 @@ class ScanOptionsDialog(QDialog):
             self.port_range_group.setEnabled(False)
             layout.addWidget(self.port_range_group)
 
-            # Connect custom ports checkbox to enable/disable port range input
+       
             self.checkboxes["custom_ports"].toggled.connect(self.port_range_group.setEnabled)
 
-        # Buttons
+ 
         buttons = QDialogButtonBox(
             QDialogButtonBox.Ok | QDialogButtonBox.Cancel
         )
@@ -414,7 +413,7 @@ class ScanOptionsDialog(QDialog):
             "selected": {k: v.isChecked() for k, v in self.checkboxes.items()}
         }
 
-        # Add port range if applicable
+   
         if self.scan_type == "port" and self.checkboxes.get("custom_ports", QCheckBox()).isChecked():
             options["port_range"] = {
                 "start": self.port_start.value(),
